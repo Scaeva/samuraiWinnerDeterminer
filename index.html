@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+        <meta charset="UTF-8">
+        <title data-i18n="title">Samurai Winner Determiner</title>
+        <link rel="stylesheet" type="text/css" href="styles/main.css">
+        <script src="scripts/main.js"></script>
+    </head>
+    <body>
+        <div class="players">
+            <div class="red">
+                <label><span data-i18n="rice">Rice</span><input data-player="red" data-type="rice"></label>
+                <label><span data-i18n="helmets">Helmets</span><input data-player="red" data-type="helmets"></label>
+                <label><span data-i18n="buddhas">Buddhas</span><input data-player="red" data-type="buddhas"></label>
+            </div>
+            <div class="green">
+                <label><span data-i18n="rice">Rice</span><input data-player="green" data-type="rice"></label>
+                <label><span data-i18n="helmets">Helmets</span><input data-player="green" data-type="helmets"></label>
+                <label><span data-i18n="buddhas">Buddhas</span><input data-player="green" data-type="buddhas"></label>
+            </div>
+            <div class="blue">
+                <label><span data-i18n="rice">Rice</span><input data-player="blue" data-type="rice"></label>
+                <label><span data-i18n="helmets">Helmets</span><input data-player="blue" data-type="helmets"></label>
+                <label><span data-i18n="buddhas">Buddhas</span><input data-player="blue" data-type="buddhas"></label>
+            </div>
+            <div class="yellow">
+                <label><span data-i18n="rice">Rice</span><input data-player="yellow" data-type="rice"></label>
+                <label><span data-i18n="helmets">Helmets</span><input data-player="yellow" data-type="helmets"></label>
+                <label><span data-i18n="buddhas">Buddhas</span><input data-player="yellow" data-type="buddhas"></label>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="determineWinner" data-i18n="determineWinner">Determine Winner</button>
+            <button id="clear" data-i18n="clear">Clear</button>
+            <button id="help" data-i18n="help">Help</button>
+        </div>
+        <script src="scripts/determineWinner.js"></script>
+        <script>
+            (() => {
+                const translateElementText = (element) => {
+                    const code = element.dataset.i18n;
+                    const text = getTranslation(code);
+                    element.textContent = text;
+                }
+                const translateAll = () => {
+                    if(lang === i18nKeys.en){
+                        return;
+                    }
+                    for (const element of document.querySelectorAll('[data-i18n]')) {
+                        translateElementText(element);
+                    }
+                }
+                const inputs = document.querySelectorAll('input');
+                const init = () => {
+                    for (const input of inputs) {
+                        input.value = '';
+                        input.placeholder = getTranslation(input.dataset.type);
+                        input.type = 'number';
+                        input.min = 0;
+                        input.max = 14;
+                        input.maxLength = 2;
+                    }
+                    
+                    translateAll();
+                }
+
+                init();
+
+                const clearInputs = () => {
+                    for (const input of inputs) {
+                        input.value = '';
+                    }
+                }
+ 
+                const getPlayersStatsFromInputs = (inputs) => {
+                    const playersStats = {};
+                    for (const input of inputs) {
+                        const player = input.dataset.player;
+                        const type = input.dataset.type;
+                        const count = input.value * 1;
+                        let stats = playersStats[player];
+                        if(!stats){
+                            stats = {};
+                            playersStats[player] = stats;
+                        }
+                        stats[type] = count;
+                    }
+                    return playersStats;
+                }
+
+                const notify = (message) => {
+                    alert(message);
+                    //TODO: show pretty window
+                }
+
+                const determineWinnerMain = () => {
+                    const playersStats = getPlayersStatsFromInputs(inputs);
+                    const winners = determineWinner(playersStats);
+                    let message;
+                    if(winners === false){
+                        message = getTranslation(i18nKeys.inputsEmpty);
+                    } else if(winners) {
+                        if(winners.length > 1){
+                            message = `Winners are: ${winners.map(w => w.player).join(' & ')}!`;
+                        } else {
+                            message = `Winner is: ${winners[0].player}!`;
+                        }                        
+                    } else {
+                        message = 'Not implemented';
+                    }
+                    notify(message);
+                }
+                
+                const showHelp = () => {
+                    notify(getTranslation(i18nKeys.helpText));
+                }
+
+                document.getElementById('clear').addEventListener('click', clearInputs);
+                document.getElementById('determineWinner').addEventListener('click', determineWinnerMain);
+                document.getElementById('help').addEventListener('click', showHelp);
+
+  
+            })();
+        </script>
+    </body>
+</html>
