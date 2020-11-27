@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>   
-        <meta charset="UTF-8">
+    <head>
         <title data-i18n="title">Samurai Winner Determiner</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" type="text/css" href="styles/main.css">
         <script src="scripts/main.js"></script>
     </head>
     <body>
-        <div class="players">
-            <div class="red">
-                <label><span data-i18n="rice">Rice</span><input data-player="red" data-type="rice"></label>
-                <label><span data-i18n="helmets">Helmets</span><input data-player="red" data-type="helmets"></label>
-                <label><span data-i18n="buddhas">Buddhas</span><input data-player="red" data-type="buddhas"></label>
+        <div id="container">
+            <div class="players">
+                <div class="red">
+                    <label><span data-i18n="rice">Rice</span><input data-player="red" data-type="rice"></label>
+                    <label><span data-i18n="helmets">Helmets</span><input data-player="red" data-type="helmets"></label>
+                    <label><span data-i18n="buddhas">Buddhas</span><input data-player="red" data-type="buddhas"></label>
+                </div>
+                <div class="green">
+                    <label><span data-i18n="rice">Rice</span><input data-player="green" data-type="rice"></label>
+                    <label><span data-i18n="helmets">Helmets</span><input data-player="green" data-type="helmets"></label>
+                    <label><span data-i18n="buddhas">Buddhas</span><input data-player="green" data-type="buddhas"></label>
+                </div>
+                <div class="blue">
+                    <label><span data-i18n="rice">Rice</span><input data-player="blue" data-type="rice"></label>
+                    <label><span data-i18n="helmets">Helmets</span><input data-player="blue" data-type="helmets"></label>
+                    <label><span data-i18n="buddhas">Buddhas</span><input data-player="blue" data-type="buddhas"></label>
+                </div>
+                <div class="yellow">
+                    <label><span data-i18n="rice">Rice</span><input data-player="yellow" data-type="rice"></label>
+                    <label><span data-i18n="helmets">Helmets</span><input data-player="yellow" data-type="helmets"></label>
+                    <label><span data-i18n="buddhas">Buddhas</span><input data-player="yellow" data-type="buddhas"></label>
+                </div>
             </div>
-            <div class="green">
-                <label><span data-i18n="rice">Rice</span><input data-player="green" data-type="rice"></label>
-                <label><span data-i18n="helmets">Helmets</span><input data-player="green" data-type="helmets"></label>
-                <label><span data-i18n="buddhas">Buddhas</span><input data-player="green" data-type="buddhas"></label>
+            <div class="buttons">
+                <button id="determineWinner" data-i18n="determineWinner">Determine Winner</button>
+                <button id="clear" data-i18n="clear">Clear</button>
+                <button id="help" data-i18n="help">Help</button>
             </div>
-            <div class="blue">
-                <label><span data-i18n="rice">Rice</span><input data-player="blue" data-type="rice"></label>
-                <label><span data-i18n="helmets">Helmets</span><input data-player="blue" data-type="helmets"></label>
-                <label><span data-i18n="buddhas">Buddhas</span><input data-player="blue" data-type="buddhas"></label>
-            </div>
-            <div class="yellow">
-                <label><span data-i18n="rice">Rice</span><input data-player="yellow" data-type="rice"></label>
-                <label><span data-i18n="helmets">Helmets</span><input data-player="yellow" data-type="helmets"></label>
-                <label><span data-i18n="buddhas">Buddhas</span><input data-player="yellow" data-type="buddhas"></label>
-            </div>
-        </div>
-        <div class="buttons">
-            <button id="determineWinner" data-i18n="determineWinner">Determine Winner</button>
-            <button id="clear" data-i18n="clear">Clear</button>
-            <button id="help" data-i18n="help">Help</button>
         </div>
         <script src="scripts/determineWinner.js"></script>
         <script>
