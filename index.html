@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C03C7FW3RG"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            function sendPageView(){
+                return ['http:', 'https:'].indexOf(location.protocol) >= 0 && location.host.indexOf('localhost') === -1;
+            }
+            gtag('config', 'G-C03C7FW3RG', { 'send_page_view': sendPageView() });
+        </script>
         <title data-i18n="title">Samurai Winner Determiner</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -37,6 +47,11 @@
                 <button id="help" data-i18n="help">Help</button>
             </div>
         </div>
+        <div id="overlay"></div>
+        <div id="notification">
+            <div id="notificationText"></div>
+            <button data-i18n="close">Close</button>
+        </div>
         <script src="scripts/determineWinner.js"></script>
         <script>
             (() => {
@@ -63,7 +78,7 @@
                         input.max = 14;
                         input.maxLength = 2;
                     }
-                    
+
                     translateAll();
                 }
 
@@ -74,7 +89,7 @@
                         input.value = '';
                     }
                 }
- 
+
                 const getPlayersStatsFromInputs = (inputs) => {
                     const playersStats = {};
                     for (const input of inputs) {
@@ -91,9 +106,10 @@
                     return playersStats;
                 }
 
+                const body = document.querySelector('body');
                 const notify = (message) => {
-                    alert(message);
-                    //TODO: show pretty window
+                    document.getElementById('notificationText').innerText = message;
+                    body.classList.add("show-notification");
                 }
 
                 const determineWinnerMain = () => {
@@ -107,22 +123,25 @@
                             message = `Winners are: ${winners.map(w => w.player).join(' & ')}!`;
                         } else {
                             message = `Winner is: ${winners[0].player}!`;
-                        }                        
+                        }
                     } else {
                         message = 'Not implemented';
                     }
                     notify(message);
                 }
-                
+
                 const showHelp = () => {
                     notify(getTranslation(i18nKeys.helpText));
+                }
+
+                const closeNotification = () => {
+                    body.classList.remove("show-notification");
                 }
 
                 document.getElementById('clear').addEventListener('click', clearInputs);
                 document.getElementById('determineWinner').addEventListener('click', determineWinnerMain);
                 document.getElementById('help').addEventListener('click', showHelp);
-
-  
+                document.querySelector('#notification>button').addEventListener('click', closeNotification);
             })();
         </script>
     </body>

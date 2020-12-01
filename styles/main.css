@@ -1,5 +1,6 @@
 body{
     padding: 20px;
+    position: relative;
 }
 .players > div{
     border: 1px solid inherit;
@@ -37,13 +38,45 @@ body{
 .buttons{
     text-align: center;
 }
-.buttons>button{
+button{
     padding: 10px;
     border-radius: 3px;
     border: 1px solid #aaa;
     background-color: #eee;
 }
-.buttons>button:hover{
+button:hover{
     cursor: pointer;
     background-color: #e0e0e0;
+}
+
+#overlay{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+    opacity: 0.8;
+}
+#notification{
+    position: absolute;
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    display: none;
+    top: 100px;
+    padding: 20px;
+}
+#notification>div{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+#notification>button{
+    margin: 10px auto 0;
+    display: block;
+}
+
+body.show-notification #overlay, body.show-notification #notification{
+    display: block;
 }
